@@ -44,11 +44,8 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        //quiz = await Http.GetJsonAsync<List<QuizItem>>("Quiz");
-            HttpResponseMessage response = await Http.GetAsync("Quiz");
-            //string quizString = await response.Content.ReadAsStringAsync();
-            quiz = await response.Content.ReadFromJsonAsync<List<QuizItem>>();
-            //quiz = new JavaScriptSerializer().Deserialize<List<QuizItem>>(quizString);
+        HttpResponseMessage response = await Http.GetAsync("Quiz");
+        quiz = await response.Content.ReadFromJsonAsync<List<QuizItem>>();
     }
 
     void UpdateScore(int chosenAnswerIndex, int quizIndex)
