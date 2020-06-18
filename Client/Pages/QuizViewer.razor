@@ -1,10 +1,15 @@
 @page "/quizViewer"
+@attribute [Authorize]
+
 @using QuizManagerClientHosted.Shared
 @using System.Net.Http.Json
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using System.Net.Http.Headers
 @inject HttpClient Http
+@inject IAccessTokenProvider TokenProvider
 
 <h1>Take your quiz!</h1>
-<p>Your current score is @currentScore</p>
+    <p>Your current score is @currentScore</p>
 
 @if (quiz == null)
 {
@@ -15,27 +20,26 @@ else
     int quizIndex = 0;
     @foreach (var quizItem in quiz)
     {
-        <section>
-            <h3>@quizItem.Question</h3>
-            <div class="form-check">
-            @{
-                int choiceIndex = 0;
-                quizScores.Add(0);
-            }
-            @foreach (var choice in quizItem.Choices)
-            {
-                int currentQuizIndex = quizIndex;
-                <input class="form-check-input" type="radio" name="@quizIndex" value="@choiceIndex" @onchange="@((eventArgs) => UpdateScore(Convert.ToInt32(eventArgs.Value), currentQuizIndex))"/>@choice<br>
+    <section>
+        <h3>@quizItem.Question</h3>
+        <div class="form-check">
+        @{
+        int choiceIndex = 0;
+        quizScores.Add(0);
+        }
+        @foreach (var choice in quizItem.Choices)
+        {
+        int currentQuizIndex = quizIndex;
+        <input class="form-check-input" type="radio" name="@quizIndex" value="@choiceIndex" @onchange="@((eventArgs) => UpdateScore(Convert.ToInt32(eventArgs.Value), currentQuizIndex))"/>@choice<br>
 
-                choiceIndex++;
-            }
-            </div>
-        </section>
+        choiceIndex++;
+        }
+        </div>
+    </section>
 
-        quizIndex++;
+    quizIndex++;
     }
 }
-
 
 @code {
     List<QuizItem> quiz;
@@ -44,21 +48,28 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        HttpResponseMessage response = await Http.GetAsync("Quiz");
-        quiz = await response.Content.ReadFromJsonAsync<List<QuizItem>>();
-    }
+      using (var requestMessage = new HttpRequestMessage(HttpMethod.Get, "quiz")) {
+        var tokenResult = await TokenProvider.RequestAccessToken();
 
+        if (tokenResult.TryGetToken(out var token)) {
+          requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token.Value);
+          var response = await Http.SendAsync(requestMessage);
+          quiz = await response.Content.ReadFromJsonAsync<List<QuizItem>>();
+        }
+      }
+    }
     void UpdateScore(int chosenAnswerIndex, int quizIndex)
     {
-        var quizItem = quiz[quizIndex];
+      var quizItem = quiz[quizIndex];
 
-        if (chosenAnswerIndex == quizItem.AnswerIndex)
-        {
-            quizScores[quizIndex] = quizItem.Score;
-        } else
-        {
-            quizScores[quizIndex] = 0;
-        }
-        currentScore = quizScores.Sum();
+      if (chosenAnswerIndex == quizItem.AnswerIndex)
+      {
+    quizScores[quizIndex] = quizItem.Score;
+      }
+      else
+      {
+    quizScores[quizIndex] = 0;
+      }
+      currentScore = quizScores.Sum();
     }
 }

@@ -1,0 +1,7 @@
+{
+  "Auth0": {
+    "Authority": "https://<YOUR_AUTH0_DOMAIN>",
+    "ClientId": "<YOUR_CLIENT_ID>",
+    "ApiIdentifier": "<YOUR_API_IDENTIFIER>"
+  }
+}

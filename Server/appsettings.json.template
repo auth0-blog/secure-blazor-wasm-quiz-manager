@@ -1,0 +1,14 @@
+{
+  "Logging": {
+      "LogLevel": {
+      "Default": "Information",
+      "Microsoft": "Warning",
+      "Microsoft.Hosting.Lifetime": "Information"
+      }
+    },
+  "AllowedHosts": "*",
+  "Auth0": {
+    "Authority": "https://<YOUR_AUTH0_DOMAIN>",
+    "ApiIdentifier": "<YOUR_API_IDENTIFIER>"
+  }
+}
