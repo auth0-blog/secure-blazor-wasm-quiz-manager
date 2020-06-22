@@ -18,9 +18,9 @@ namespace QuizManagerClientHosted.Client
 
       builder.Services.AddOidcAuthentication(options =>
       {
+        builder.Configuration.Bind("Auth0", options.ProviderOptions);
         options.ProviderOptions.PostLogoutRedirectUri = "/";
         options.ProviderOptions.ResponseType = "code";
-        builder.Configuration.Bind("Auth0", options.ProviderOptions);
       });
 
       await builder.Build().RunAsync();
