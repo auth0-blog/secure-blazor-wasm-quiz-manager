@@ -31,5 +31,5 @@ To run this project, follow these steps:
    dotnet run --project Server
    ```
 
-7. You should be able to authenticate and access the application
+7. Now, point your browser to [https://localhost:5001](https://localhost:5001/). You should be able to authenticate and access the application
 
