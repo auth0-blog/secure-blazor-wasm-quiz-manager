@@ -7,7 +7,7 @@ The implementation details are described in the following article: [Securing Bla
 
 This project uses the following technologies:
 
-- [.NET Core SDK 3.1](https://dotnet.microsoft.com/download/dotnet-core/3.1)
+- [.NET SDK 5](https://dotnet.microsoft.com/download/dotnet-core/5.0)
 - [Blazor](https://dotnet.microsoft.com/apps/aspnet/web-apps/blazor)
 - [Auth0](https://auth0.com/)
 

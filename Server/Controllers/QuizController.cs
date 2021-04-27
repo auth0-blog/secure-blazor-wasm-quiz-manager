@@ -1,4 +1,4 @@
-﻿using QuizManagerClientHosted.Shared;
+using QuizManagerClientHosted.Shared;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.Authorization;
 namespace QuizManagerClientHosted.Server.Controllers
 {
   [ApiController]
-  [Route("[controller]")]
-  [Authorize]
-  public class QuizController : ControllerBase
-  {
-    private static readonly List<QuizItem> Quiz = new List<QuizItem> {
+    [Route("[controller]")]
+    [Authorize]
+    public class QuizController : ControllerBase
+    {
+        private static readonly List<QuizItem> Quiz = new List<QuizItem> {
             new QuizItem
                 {
                     Question = "Which of the following is the name of a Leonardo da Vinci's masterpiece?",
@@ -27,10 +27,10 @@ namespace QuizManagerClientHosted.Server.Controllers
                 }
             };
 
-    [HttpGet]
-    public List<QuizItem> Get()
-    {
-      return Quiz;
+        [HttpGet]
+        public List<QuizItem> Get()
+        {
+            return Quiz;
+        }
     }
-  }
 }
