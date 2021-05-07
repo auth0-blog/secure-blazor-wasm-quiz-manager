@@ -3,8 +3,8 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:19728",
-      "sslPort": 44389
+      "applicationUrl": "http://localhost:10124",
+      "sslPort": 44303
     }
   },
   "profiles": {
@@ -18,6 +18,7 @@
     },
     "QuizManagerClientHosted": {
       "commandName": "Project",
+      "dotnetRunMessages": "true",
       "launchBrowser": true,
       "inspectUri": "{wsProtocol}://{url.hostname}:{url.port}/_framework/debug/ws-proxy?browser={browserInspectUri}",
       "applicationUrl": "https://localhost:5001;http://localhost:5000",
