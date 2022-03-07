@@ -1,17 +1,13 @@
-using System.Collections.Generic;
-
-namespace QuizManagerClientHosted.Shared
+namespace QuizManagerClientHosted.Shared;
+public class QuizItem
 {
-    public class QuizItem
-    {
-        public string Question { get; set; }
-        public List<string> Choices { get; set; }
-        public int AnswerIndex { get; set; }
-        public int Score { get; set; }
+  public string Question { get; set; }
+  public List<string> Choices { get; set; }
+  public int AnswerIndex { get; set; }
+  public int Score { get; set; }
 
-        public QuizItem()
-        {
-            Choices = new List<string>();
-        }
-    }
+  public QuizItem()
+  {
+    Choices = new List<string>();
+  }
 }

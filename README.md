@@ -7,7 +7,7 @@ The implementation details are described in the following article: [Securing Bla
 
 This project uses the following technologies:
 
-- [.NET SDK 5](https://dotnet.microsoft.com/download/dotnet-core/5.0)
+- [.NET SDK 6](https://dotnet.microsoft.com/download/dotnet-core/6.0)
 - [Blazor](https://dotnet.microsoft.com/apps/aspnet/web-apps/blazor)
 - [Auth0](https://auth0.com/)
 
@@ -31,5 +31,5 @@ To run this project, follow these steps:
    dotnet run --project Server
    ```
 
-7. Now, point your browser to [https://localhost:5001](https://localhost:5001/). You should be able to authenticate and access the application
+7. Now, point your browser to [https://localhost:7291](https://localhost:7291/). You should be able to authenticate and access the application
 
