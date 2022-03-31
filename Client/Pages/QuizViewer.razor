@@ -1,72 +1,74 @@
 @page "/quizViewer"
 @attribute [Authorize]
-
 @using QuizManagerClientHosted.Shared
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @inject HttpClient Http
+
 
 <h1>Take your quiz!</h1>
 <p>Your current score is @currentScore</p>
 
 @if (quiz == null)
 {
-    <p><em>Loading...</em></p>
+  <p><em>Loading...</em></p>
 }
 else
 {
-    int quizIndex = 0;
-    @foreach (var quizItem in quiz)
-    {
-        <section>
-    <h3>@quizItem.Question</h3>
-    <div class="form-check">
-        @{
-                    int choiceIndex = 0;
-                    quizScores.Add(0);
-                }
-                @foreach (var choice in quizItem.Choices)
-                {
-                    int currentQuizIndex = quizIndex;
-                    <input class="form-check-input" type="radio" name="@quizIndex" value="@choiceIndex"
-            @onchange="@((eventArgs) => UpdateScore(Convert.ToInt32(eventArgs.Value), currentQuizIndex))" />@choice<br>
+  int quizIndex = 0;
+  @foreach (var quizItem in quiz)
+  {
+    <section>
+  <h3>@quizItem.Question</h3>
+  <div class="form-check">
+    @{
+          int choiceIndex = 0;
+          quizScores.Add(0);
+        }
+        @foreach (var choice in quizItem.Choices)
+        {
+          int currentQuizIndex = quizIndex;
+          <input class="form-check-input" type="radio" name="@quizIndex" value="@choiceIndex"
+      @onchange="@((eventArgs) => UpdateScore(Convert.ToInt32(eventArgs.Value), currentQuizIndex))" />@choice
+          <br>
 
-                    choiceIndex++;
-                }
-            </div>
-        </section>
+          choiceIndex++;
+        }
+      </div>
+    </section>
 
-        quizIndex++;
-    }
+    quizIndex++;
+  }
 }
 
 @code {
-    List<QuizItem> quiz;
-    List<int> quizScores = new List<int>();
-    int currentScore = 0;
+  List<QuizItem> quiz;
+  List<int> quizScores = new List<int>();
+  int currentScore = 0;
 
-    protected override async Task OnInitializedAsync()
+  protected override async Task OnInitializedAsync()
+  {
+    try
     {
-        try
-        {
-            quiz = await Http.GetFromJsonAsync<List<QuizItem>>("quiz");
-        }
-        catch (AccessTokenNotAvailableException exception)
-        {
-            exception.Redirect();
-        }
+      quiz = await Http.GetFromJsonAsync<List<QuizItem>>("quiz");
     }
-    void UpdateScore(int chosenAnswerIndex, int quizIndex)
+    catch (AccessTokenNotAvailableException exception)
     {
-        var quizItem = quiz[quizIndex];
+      exception.Redirect();
+    }
+  }
 
-        if (chosenAnswerIndex == quizItem.AnswerIndex)
-        {
-            quizScores[quizIndex] = quizItem.Score;
-        }
-        else
-        {
-            quizScores[quizIndex] = 0;
-        }
-        currentScore = quizScores.Sum();
+  void UpdateScore(int chosenAnswerIndex, int quizIndex)
+  {
+    var quizItem = quiz[quizIndex];
+
+    if (chosenAnswerIndex == quizItem.AnswerIndex)
+    {
+      quizScores[quizIndex] = quizItem.Score;
     }
+    else
+    {
+      quizScores[quizIndex] = 0;
+    }
+    currentScore = quizScores.Sum();
+  }
 }
