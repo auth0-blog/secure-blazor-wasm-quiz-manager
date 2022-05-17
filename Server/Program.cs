@@ -11,7 +11,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         c.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
         {
             ValidAudience = builder.Configuration["Auth0:Audience"],
-            ValidIssuer = builder.Configuration["Auth0:Domain"]
+            ValidIssuer = $"https://{builder.Configuration["Auth0:Domain"]}"
         };
     });
 
